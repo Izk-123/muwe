@@ -7,48 +7,36 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('Seeding portfolio data...')
         
-        # Create Site Settings
-        site_settings, created = SiteSettings.objects.get_or_create(
+        SiteSettings.objects.get_or_create(
             id=1,
             defaults={
                 'site_name': "Muwemi Ndovie - Mechanical Engineer",
                 'hero_title': "Mechanical Engineering Innovator & Problem Solver",
                 'hero_subtitle': "Specializing in hydraulic systems, automation, and sustainable energy solutions with a passion for innovation and efficiency",
-                'about_title': "About Me",
-                'about_subtitle': "Goal-oriented Mechanical Engineering student with distinction average and passion for sustainable innovation",
             }
         )
         
-        # Create About Section
-        about, created = About.objects.get_or_create(
+        About.objects.get_or_create(
             id=1,
             defaults={
                 'content': "I am a goal-oriented, determined, and disciplined individual with a passion for problem-solving in the field of mechanical engineering. I possess strong ethical values and excel both in team settings and independently. I am committed to applying my skills and knowledge in engineering to deliver innovative and efficient solutions in design, development and maintenance of mechanical systems."
             }
         )
         
-        # Create Skills
         skills_data = [
-            # Engineering Skills
             {'name': 'Hydraulic System Design', 'category': 'ENG', 'level': 85},
             {'name': 'CAD (AutoCAD, Fusion360)', 'category': 'DESIGN', 'level': 80},
             {'name': 'MATLAB Simulation', 'category': 'ENG', 'level': 75},
             {'name': 'Fluid Mechanics', 'category': 'ENG', 'level': 80},
             {'name': 'Machine Element Design', 'category': 'ENG', 'level': 75},
             {'name': 'Strength of Materials', 'category': 'ENG', 'level': 80},
-            
-            # Programming Skills
             {'name': 'C++', 'category': 'PROG', 'level': 70},
             {'name': 'Arduino Programming', 'category': 'PROG', 'level': 75},
             {'name': 'HTML', 'category': 'PROG', 'level': 65},
             {'name': 'G-code', 'category': 'PROG', 'level': 70},
-            
-            # Manufacturing Skills
             {'name': 'Lathe Machine Operation', 'category': 'ENG', 'level': 70},
             {'name': 'Milling Machine Operation', 'category': 'ENG', 'level': 65},
             {'name': 'Shaper Machine Operation', 'category': 'ENG', 'level': 60},
-            
-            # Soft Skills
             {'name': 'Project Management', 'category': 'SOFT', 'level': 80},
             {'name': 'Team Leadership', 'category': 'SOFT', 'level': 85},
             {'name': 'Technical Communication', 'category': 'SOFT', 'level': 80},
@@ -61,7 +49,6 @@ class Command(BaseCommand):
                 defaults={**skill_data, 'order': i}
             )
         
-        # Create Education
         education_data = [
             {
                 'degree': 'Bachelor of Mechanical Engineering (Hons)',
@@ -80,7 +67,6 @@ class Command(BaseCommand):
                 defaults=edu
             )
         
-        # Create Certifications
         certifications_data = [
             {
                 'title': 'Registered Student Engineer',
@@ -107,7 +93,6 @@ class Command(BaseCommand):
                 defaults=cert
             )
         
-        # Create Extracurricular Activities
         extracurriculars_data = [
             {
                 'title': 'President, MUBAS Students Innovation Hub',
@@ -154,7 +139,6 @@ class Command(BaseCommand):
                 defaults=activity
             )
         
-        # Create Projects
         projects_data = [
             {
                 'title': 'Hydropower Harnessing System from Domestic Water Flow',

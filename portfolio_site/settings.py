@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-*06t)1qyzu2@3&j(q(_gpj3jwr0ho3s)ki1sg4k!djo(&q^&rv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'muwe.pythonanywhere.com']
 
 
 # Application definition
@@ -63,7 +63,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',  # Fixed: added comma here
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',

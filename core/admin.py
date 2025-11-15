@@ -3,7 +3,6 @@ from django import forms
 from django.utils.html import format_html
 from .models import *
 
-# Custom admin form for Post with larger textarea
 class PostAdminForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -16,7 +15,7 @@ class PostAdminForm(forms.ModelForm):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     form = PostAdminForm
-    list_display = ['title', 'author', 'published_date', 'is_published', 'is_featured', 'view_count']
+    list_display = ['title', 'author', 'published_date', 'is_published', 'is_featured']
     list_editable = ['is_published', 'is_featured']
     list_filter = ['is_published', 'is_featured', 'published_date', 'tags']
     search_fields = ['title', 'markdown_content', 'excerpt']
@@ -49,7 +48,6 @@ class PostAdmin(admin.ModelAdmin):
         return "Save post first to preview"
     preview_link.short_description = "Post Preview"
 
-# Enhanced Project Admin with better image management
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
     extra = 1
@@ -87,7 +85,6 @@ class ProjectAdmin(admin.ModelAdmin):
         return len(obj.get_technologies_list())
     technology_count.short_description = 'Tech Count'
 
-# Enhanced Skill Admin with bulk actions
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
     list_display = ['name', 'category', 'level', 'order', 'skill_bar']
@@ -110,7 +107,6 @@ class SkillAdmin(admin.ModelAdmin):
         self.message_user(request, f'Successfully reset {updated} skills to level 50.')
     reset_skill_levels.short_description = "Reset selected skills to level 50"
 
-# Enhanced Contact Message Admin
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', 'subject_preview', 'created_at', 'read', 'reply_action']
@@ -166,19 +162,25 @@ class SiteSettingsAdmin(admin.ModelAdmin):
 @admin.register(Education)
 class EducationAdmin(admin.ModelAdmin):
     list_display = ['degree', 'institution', 'period', 'current']
+    list_editable = ['current']
 
 @admin.register(Certification)
 class CertificationAdmin(admin.ModelAdmin):
     list_display = ['title', 'issuer', 'issue_date', 'in_progress']
+    list_editable = ['in_progress']
 
 @admin.register(Extracurricular)
 class ExtracurricularAdmin(admin.ModelAdmin):
     list_display = ['title', 'organization', 'role', 'period', 'current']
-    
+    list_editable = ['current']
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug']
+    prepopulated_fields = {'slug': ('name',)}
+
 admin.site.register(About)
 
-# Custom Admin Site Title
 admin.site.site_header = "Muwemi's Portfolio Admin"
 admin.site.site_title = "Portfolio Admin"
 admin.site.index_title = "Welcome to Portfolio Administration"
-

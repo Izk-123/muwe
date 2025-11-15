@@ -28,7 +28,7 @@ class Skill(models.Model):
     ]
     
     name = models.CharField(max_length=64)
-    level = models.PositiveSmallIntegerField(help_text="0-100")  # 0-100
+    level = models.PositiveSmallIntegerField(help_text="0-100")
     category = models.CharField(max_length=10, choices=SKILL_CATEGORIES, default='ENG')
     order = models.PositiveSmallIntegerField(default=0)
 
@@ -55,10 +55,16 @@ class Project(models.Model):
     def get_technologies_list(self):
         return [tech.strip() for tech in self.technologies.split(',')]
 
+    def __str__(self):
+        return self.title
+
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='projects/')
     caption = models.CharField(max_length=140, blank=True)
+
+    def __str__(self):
+        return f"Image for {self.project.title}"
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length=80)
@@ -67,6 +73,9 @@ class ContactMessage(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Message from {self.name}"
 
 class Education(models.Model):
     degree = models.CharField(max_length=200)
@@ -79,6 +88,9 @@ class Education(models.Model):
     class Meta:
         ordering = ['-order']
 
+    def __str__(self):
+        return self.degree
+
 class Certification(models.Model):
     title = models.CharField(max_length=200)
     issuer = models.CharField(max_length=200)
@@ -88,6 +100,36 @@ class Certification(models.Model):
 
     class Meta:
         ordering = ['-issue_date']
+
+    def __str__(self):
+        return self.title
+
+class Extracurricular(models.Model):
+    title = models.CharField(max_length=200)
+    organization = models.CharField(max_length=200)
+    role = models.CharField(max_length=100, blank=True)
+    period = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    current = models.BooleanField(default=False)
+    order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ['-order']
+
+    def __str__(self):
+        return self.title
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
@@ -112,26 +154,9 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         if not self.excerpt and self.markdown_content:
-            # Create excerpt from first 150 characters of content
             plain_text = self.markdown_content[:150]
             self.excerpt = plain_text + '...' if len(plain_text) == 150 else plain_text
         super().save(*args, **kwargs)
     
     def get_absolute_url(self):
-
         return reverse('post_detail', kwargs={'slug': self.slug})
-
-class Extracurricular(models.Model):
-    title = models.CharField(max_length=200)
-    organization = models.CharField(max_length=200)
-    role = models.CharField(max_length=100, blank=True)
-    period = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    current = models.BooleanField(default=False)
-    order = models.PositiveSmallIntegerField(default=0)
-
-    class Meta:
-        ordering = ['-order']
-
-    def __str__(self):
-        return self.title
