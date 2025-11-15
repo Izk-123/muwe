@@ -174,11 +174,11 @@ class CertificationAdmin(admin.ModelAdmin):
 @admin.register(Extracurricular)
 class ExtracurricularAdmin(admin.ModelAdmin):
     list_display = ['title', 'organization', 'role', 'period', 'current']
-
+    
 admin.site.register(About)
 
 # Custom Admin Site Title
 admin.site.site_header = "Muwemi's Portfolio Admin"
 admin.site.site_title = "Portfolio Admin"
-
 admin.site.index_title = "Welcome to Portfolio Administration"
+
