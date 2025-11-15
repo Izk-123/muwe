@@ -118,4 +118,20 @@ class Post(models.Model):
         super().save(*args, **kwargs)
     
     def get_absolute_url(self):
+
         return reverse('post_detail', kwargs={'slug': self.slug})
+
+class Extracurricular(models.Model):
+    title = models.CharField(max_length=200)
+    organization = models.CharField(max_length=200)
+    role = models.CharField(max_length=100, blank=True)
+    period = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    current = models.BooleanField(default=False)
+    order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ['-order']
+
+    def __str__(self):
+        return self.title
