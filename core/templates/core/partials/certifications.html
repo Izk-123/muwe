@@ -1,0 +1,37 @@
+<section id="certifications" class="py-20 bg-white dark:bg-gray-800">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">Certifications & Training</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% for cert in certifications %}
+                <div class="fade-in bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ cert.title }}</h3>
+                        {% if cert.in_progress %}
+                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full">
+                            In Progress
+                        </span>
+                        {% endif %}
+                    </div>
+                    <p class="text-primary-600 dark:text-primary-400 mb-3">{{ cert.issuer }}</p>
+                    {% if cert.issue_date %}
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        Issued: {{ cert.issue_date|date:"F Y" }}
+                    </p>
+                    {% endif %}
+                    {% if cert.credential_url %}
+                    <a href="{{ cert.credential_url }}" target="_blank" 
+                       class="inline-flex items-center text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 mt-3 transition-colors">
+                        View Credential
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

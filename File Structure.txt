@@ -1,0 +1,43 @@
+portfolio/
+├── requirements.txt
+├── README.md
+├── manage.py
+├── portfolio_site/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── core/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── management/
+│   │   └── commands/
+│   │       └── seed_portfolio.py
+│   └── templates/
+│       └── core/
+│           ├── base.html
+│           ├── home.html
+│           ├── project_detail.html
+│           └── partials/
+│               ├── header.html
+│               ├── footer.html
+│               ├── hero.html
+│               ├── about.html
+│               ├── skills.html
+│               ├── projects.html
+│               ├── education.html
+│               ├── certifications.html
+│               └── contact.html
+├── assets/
+│   ├── css/
+│   │   ├── input.css
+│   │   └── output.css
+│   └── js/
+│       └── main.js
+└── static/
+    └── css/
+        └── output.css
